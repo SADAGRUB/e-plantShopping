@@ -21,19 +21,19 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleIncrement = (item) => {
-    dispatch(updateQuantity({ ...item, quantity: item.quantity + 1 }));
+    dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
   };
 
   const handleDecrement = (item) => {
-    if (item.quantity > 0) {
-      dispatch(updateQuantity({ ...item, quantity: item.quantity - 1 }));
+    if (item.quantity > 1) {
+      dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
     } else {
-      dispatch(removeItem(item.id)); // Remove the item completely
+      dispatch(removeItem(item.name)); // Remove the item completely
     }
   };
 
-  const handleRemove = (itemId) => {
-    dispatch(removeItem(itemId)); // Dispatch the removeItem action with the itemId
+  const handleRemove = (itemName) => {
+    dispatch(removeItem(itemName)); // Dispatch the removeItem action with the itemName
   };
 
   // Calculate total cost based on quantity for an item
@@ -47,7 +47,7 @@ const CartItem = ({ onContinueShopping }) => {
 
       <div>
         {cart.map(item => (
-          <div className="cart-item" key={item.id}>
+          <div className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
               <div className="cart-item-name">{item.name}</div>
@@ -57,13 +57,12 @@ const CartItem = ({ onContinueShopping }) => {
                   -
                 </button>
                 <span className="cart-item-quantity-value">{item.quantity}</span>
-
                 <button className="cart-item-button cart-item-button-inc" onClick={() => handleIncrement(item)}>
                   +
                 </button>
               </div>
               <div className="cart-item-total">Total: ${calculateTotalCost(item).toFixed(2)}</div>
-              <button className="cart-item-delete" onClick={() => handleRemove(item.id)}>
+              <button className="cart-item-delete" onClick={() => handleRemove(item.name)}>
                 Delete
               </button>
             </div>
@@ -85,4 +84,4 @@ const CartItem = ({ onContinueShopping }) => {
   );
 };
 
-export default CartItem; 
+export default CartItem;
