@@ -12,8 +12,8 @@ const CartItem = ({ onContinueShopping }) => {
     return cart.reduce((total, item) => total + (item.cost * item.quantity), 0);
   };
 
-  const handleContinueShopping = () => {
-    onContinueShopping(); // Call the function passed from the parent component
+  const handleContinueShopping = (e) => {
+    onContinueShopping(e); // Call the function passed from the parent component
   };
 
   const handleCheckoutShopping = () => {
